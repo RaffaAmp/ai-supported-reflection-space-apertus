@@ -78,19 +78,19 @@ SUGGESTIONS = {
 
 @st.cache_data
 def load_lindenberg_knowledge_base():
-    """Load sample knowledge base - replace with your real data later"""
-    return [
-        {
-            "content": "Windpark Lindenberg ist ein Projekt in Beinwil (Freiamt), Aargau. Das Projekt befindet sich in der Planungsphase und soll zur Energiewende beitragen.",
-            "source": "Lindenberg_Planungsbericht",
-            "category": "general"
-        },
-        {
-            "content": "Das Projekt hat Umweltauswirkungen, die durch Schutzmaßnahmen minimiert werden. Es gibt Kompromisse zwischen lokalen Auswirkungen und globalen Klimazielen.",
-            "source": "Lindenberg_Planungsbericht", 
-            "category": "environment"
-        }
-    ]
+    """Load the real Lindenberg PDF data"""
+    try:
+        from lindenberg_data import pdf_documents
+        return pdf_documents
+    except ImportError:
+        # Fallback to sample data if file not found
+        return [
+            {
+                "content": "Windpark Lindenberg ist ein Projekt in Beinwil (Freiamt), Aargau. Das Projekt befindet sich in der Planungsphase und soll zur Energiewende beitragen.",
+                "source": "Lindenberg_Planungsbericht",
+                "category": "general"
+            }
+        ]
 
 def improved_search(query, documents, max_results=3):
     """Search function with scoring"""
